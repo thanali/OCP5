@@ -16,3 +16,16 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
+
+
+// Récupération des flèches dans le DOM
+const arrowLeft = document.querySelector('.arrow_left')
+const arrowRight = document.querySelector('.arrow_right')
+
+// Event Listener du clic sur flèche avec console.log
+arrowLeft.addEventListener('click', () => {
+	console.log('All Left')
+})
+arrowRight.addEventListener('click', () => {
+	console.log('Allright')
+})
