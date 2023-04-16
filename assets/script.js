@@ -18,14 +18,26 @@ const slides = [
 ]
 
 
-// Récupération des flèches dans le DOM
+// Récupération des éléments dans le DOM
 const arrowLeft = document.querySelector('.arrow_left')
 const arrowRight = document.querySelector('.arrow_right')
 
-// Event Listener du clic sur flèche avec console.log
+const banner = document.querySelector('#banner')
+const dots = document.querySelector('.dots')
+const bannerImg = document.querySelector('.banner-img')
+const bannerText = document.querySelector('p')
+
+// Event Listener au clic sur flèche
 arrowLeft.addEventListener('click', () => {
-	console.log('All Left')
+	console.log('All Left') //Test de fonctionnalité
 })
 arrowRight.addEventListener('click', () => {
-	console.log('Allright')
+	console.log('Allright') //Test de fonctionnalité
 })
+
+// Boucle afin de créer un point de navigation pour chaque élément de la const slides
+slides.forEach(img => {
+	dots.innerHTML += '<div class="dot"></div>' // += permet d'ajouter aux éléments existants
+});
+
+console.log(bannerText)
