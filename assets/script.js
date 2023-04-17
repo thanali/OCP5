@@ -24,33 +24,47 @@ const arrowRight = document.querySelector('.arrow_right')
 
 const dots = document.querySelector('.dots')
 
-const bannerImg = document.querySelector('.banner-img')
-bannerImg.src = './assets/images/slideshow/' + slides[0].image
-
-const bannerText = document.querySelector('#banner p')
-bannerText.innerHTML = slides[0].tagLine
-
-const nbrSlides = slides.length
-
-
-
-
-// Event Listener au clic sur flèche
-arrowLeft.addEventListener('click', () => {
-	console.log('All Left')
-})
-arrowRight.addEventListener('click',() => {
-	console.log('Allright')
-})
-
 // Boucle afin de créer un point de navigation pour chaque élément de la const slides s'il y en a plus d'un
-for (slide in slides) {
-	const dot = document.createElement('div');
-	dot.className = 'dot';
-	dots.appendChild(dot);
+slides.forEach((slide) => {
+	if (slides.length > 1) {
+		const div = document.createElement('div');
+		div.className = 'dot';
+		dots.appendChild(div);
+	}
+})
+
+// Attacher chaque nouvelle div au bloc parent
+const dot = document.querySelectorAll('.dot')
+dot[0].classList.add('dot_selected')
+
+let currentSlide = 0
+
+// Mise en place du contenu d'une slide
+function slide(item) {
+	const bannerImg = document.querySelector('.banner-img')
+	bannerImg.src = './assets/images/slideshow/' + slides[item].image
+	const bannerText = document.querySelector('#banner p')
+	bannerText.innerHTML = slides[item].tagLine
 }
 
-dotElement = document.querySelectorAll('.dot')
-dotElement[0].classList.add('dot_selected')
 
-console.log(dotElement)
+// Event Listener au clic sur flèches
+arrowLeft.addEventListener('click', () => {
+	dot[currentSlide].classList.remove("dot_selected")
+	currentSlide --
+	if(currentSlide < 0) {
+		currentSlide = slides.length - 1
+	}
+	dot[currentSlide].classList.add("dot_selected")
+	slide(currentSlide)
+})
+
+arrowRight.addEventListener('click',() => {
+	dot[currentSlide].classList.remove("dot_selected")
+	currentSlide ++
+	if(currentSlide > slides.length - 1) {
+		currentSlide = 0
+	}
+	dot[currentSlide].classList.add("dot_selected")
+	slide(currentSlide)
+})
