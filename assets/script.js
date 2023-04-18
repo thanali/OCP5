@@ -21,7 +21,8 @@ const slides = [
 // Récupération des éléments dans le DOM
 const arrowLeft = document.querySelector('.arrow_left')
 const arrowRight = document.querySelector('.arrow_right')
-
+const bannerImg = document.querySelector('.banner-img')
+const bannerText = document.querySelector('#banner p')
 const dots = document.querySelector('.dots')
 
 // Boucle afin de créer un point de navigation pour chaque élément de la const slides s'il y en a plus d'un
@@ -32,39 +33,32 @@ slides.forEach((slide) => {
 		dots.appendChild(div);
 	}
 })
-
-// Attacher chaque nouvelle div au bloc parent
+// Rattacher chaque nouvelle div au bloc parent
 const dot = document.querySelectorAll('.dot')
-dot[0].classList.add('dot_selected')
 
 let currentSlide = 0
+dot[currentSlide].classList.add('dot_selected')
 
 // Mise en place du contenu d'une slide
-function slide(item) {
-	const bannerImg = document.querySelector('.banner-img')
-	bannerImg.src = './assets/images/slideshow/' + slides[item].image
-	const bannerText = document.querySelector('#banner p')
-	bannerText.innerHTML = slides[item].tagLine
+function slide(index) {
+	// Calcul de la slide à afficher
+	currentSlide = index === slides.length ? 0 : index < 0 ? slides.length - 1 : index
+	// Contenu de la slide après calcul	
+	bannerImg.src = './assets/images/slideshow/' + slides[currentSlide].image
+	bannerText.innerHTML = slides[currentSlide].tagLine
+	dot[currentSlide].classList.add('dot_selected')
 }
 
 
 // Event Listener au clic sur flèches
 arrowLeft.addEventListener('click', () => {
-	dot[currentSlide].classList.remove("dot_selected")
-	currentSlide --
-	if(currentSlide < 0) {
-		currentSlide = slides.length - 1
-	}
-	dot[currentSlide].classList.add("dot_selected")
-	slide(currentSlide)
+	dot[currentSlide].classList.remove("dot_selected") // Retire la classe du point liée à l'élément courant
+	currentSlide -- // Compte en sens inverse
+	slide(currentSlide) // Retourne la nouvelle slide qui devient la current
 })
 
 arrowRight.addEventListener('click',() => {
 	dot[currentSlide].classList.remove("dot_selected")
-	currentSlide ++
-	if(currentSlide > slides.length - 1) {
-		currentSlide = 0
-	}
-	dot[currentSlide].classList.add("dot_selected")
+	currentSlide ++ 
 	slide(currentSlide)
 })
