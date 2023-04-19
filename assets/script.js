@@ -19,11 +19,12 @@ const slides = [
 
 
 // Récupération des éléments dans le DOM
-const arrowLeft = document.querySelector('.arrow_left')
-const arrowRight = document.querySelector('.arrow_right')
 const bannerImg = document.querySelector('.banner-img')
 const bannerText = document.querySelector('#banner p')
 const dots = document.querySelector('.dots')
+
+const arrowLeft = document.querySelector('.arrow_left').addEventListener('click', prev)
+const arrowRight = document.querySelector('.arrow_right').addEventListener('click', next)
 
 // Boucle afin de créer un point de navigation pour chaque élément de la const slides s'il y en a plus d'un
 slides.forEach((slide) => {
@@ -39,26 +40,24 @@ const dot = document.querySelectorAll('.dot')
 let currentSlide = 0
 dot[currentSlide].classList.add('dot_selected')
 
-// Mise en place du contenu d'une slide
-function slide(index) {
-	// Calcul de la slide à afficher
-	currentSlide = index === slides.length ? 0 : index < 0 ? slides.length - 1 : index
-	// Contenu de la slide après calcul	
-	bannerImg.src = './assets/images/slideshow/' + slides[currentSlide].image
-	bannerText.innerHTML = slides[currentSlide].tagLine
-	dot[currentSlide].classList.add('dot_selected')
-}
-
-
-// Event Listener au clic sur flèches
-arrowLeft.addEventListener('click', () => {
+function prev () {
 	dot[currentSlide].classList.remove("dot_selected") // Retire la classe du point liée à l'élément courant
 	currentSlide -- // Compte en sens inverse
-	slide(currentSlide) // Retourne la nouvelle slide qui devient la current
-})
+	slide() // Retourne la nouvelle slide qui devient la current
+}
 
-arrowRight.addEventListener('click',() => {
+function next () {
 	dot[currentSlide].classList.remove("dot_selected")
 	currentSlide ++ 
-	slide(currentSlide)
-})
+	slide()
+}
+
+// Mise en place du contenu d'une slide
+function slide() {
+	// Calcul de la slide à afficher
+	currentSlide = currentSlide === slides.length ? 0 : currentSlide < 0 ? slides.length - 1 : currentSlide
+	// Contenu slide
+	bannerImg.src = './assets/images/slideshow/' + slides[currentSlide].image
+	bannerText.innerHTML = slides[currentSlide].tagLine
+	dot[currentSlide].classList.add('dot_selected') // Ajoute la classe du point liée à l'élément courant
+}
