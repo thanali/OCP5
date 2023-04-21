@@ -36,27 +36,38 @@ slides.forEach((slide) => {
 })
 // Rattacher chaque nouvelle div au bloc parent
 const dot = document.querySelectorAll('.dot')
+dot[0].classList.add('dot_selected')
 
 let currentSlide = 0
-dot[currentSlide].classList.add('dot_selected')
+
 
 function prev () {
 	dot[currentSlide].classList.remove("dot_selected") // Retire la classe du point liée à l'élément courant
-	currentSlide -- // Compte en sens inverse
+
+	// Compte en sens inverse
+	if(currentSlide <= 0) {
+		currentSlide = slides.length - 1
+	} else {
+		currentSlide --
+	}
+
 	slide() // Retourne la nouvelle slide qui devient la current
 }
 
 function next () {
 	dot[currentSlide].classList.remove("dot_selected")
-	currentSlide ++ 
+
+	if(currentSlide === slides.length -1) {
+		currentSlide = 0
+	} else {
+		currentSlide ++
+	}
+
 	slide()
 }
 
 // Mise en place du contenu d'une slide
 function slide() {
-	// Calcul de la slide à afficher
-	currentSlide = currentSlide === slides.length ? 0 : currentSlide < 0 ? slides.length - 1 : currentSlide
-	// Contenu slide
 	bannerImg.src = './assets/images/slideshow/' + slides[currentSlide].image
 	bannerText.innerHTML = slides[currentSlide].tagLine
 	dot[currentSlide].classList.add('dot_selected') // Ajoute la classe du point liée à l'élément courant
