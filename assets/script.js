@@ -23,8 +23,8 @@ const bannerImg = document.querySelector('.banner-img')
 const bannerText = document.querySelector('#banner p')
 const dots = document.querySelector('.dots')
 
-const arrowLeft = document.querySelector('.arrow_left').addEventListener('click', prev)
-const arrowRight = document.querySelector('.arrow_right').addEventListener('click', next)
+const arrowLeft = document.querySelector('.arrow_left')
+const arrowRight = document.querySelector('.arrow_right')
 
 // Boucle afin de créer un point de navigation pour chaque élément de la const slides s'il y en a plus d'un
 slides.forEach((slide) => {
@@ -40,8 +40,15 @@ dot[0].classList.add('dot_selected')
 
 let currentSlide = 0
 
+// Mise en place du contenu d'une slide
+function slide() {
+	bannerImg.src = './assets/images/slideshow/' + slides[currentSlide].image
+	bannerText.innerHTML = slides[currentSlide].tagLine
+	// Ajoute la classe du point liée à l'élément courant
+	dot[currentSlide].classList.add('dot_selected')
+}
 
-function prev () {
+arrowLeft.addEventListener('click', () => {
 	dot[currentSlide].classList.remove("dot_selected") // Retire la classe du point liée à l'élément courant
 
 	// Compte en sens inverse
@@ -52,9 +59,9 @@ function prev () {
 	}
 
 	slide() // Retourne la nouvelle slide qui devient la current
-}
+})
 
-function next () {
+arrowRight.addEventListener('click', () => {
 	dot[currentSlide].classList.remove("dot_selected")
 
 	if(currentSlide === slides.length -1) {
@@ -64,11 +71,4 @@ function next () {
 	}
 
 	slide()
-}
-
-// Mise en place du contenu d'une slide
-function slide() {
-	bannerImg.src = './assets/images/slideshow/' + slides[currentSlide].image
-	bannerText.innerHTML = slides[currentSlide].tagLine
-	dot[currentSlide].classList.add('dot_selected') // Ajoute la classe du point liée à l'élément courant
-}
+})
