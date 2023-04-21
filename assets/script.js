@@ -52,7 +52,7 @@ arrowLeft.addEventListener('click', () => {
 	dot[currentSlide].classList.remove("dot_selected") // Retire la classe du point liée à l'élément courant
 
 	// Compte en sens inverse
-	if(currentSlide <= 0) {
+	if(currentSlide === 0) {
 		currentSlide = slides.length - 1
 	} else {
 		currentSlide --
