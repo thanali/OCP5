@@ -34,10 +34,12 @@ slides.forEach((slide) => {
 		dots.appendChild(div);
 	}
 })
-// Rattacher chaque nouvelle div au bloc parent
+// Récupérer les nouveaux éléments dot
 const dot = document.querySelectorAll('.dot')
+// Initialiser le point de sélection par rapport au tableau 
 dot[0].classList.add('dot_selected')
 
+// Initialiser la slide
 let currentSlide = 0
 
 // Mise en place du contenu d'une slide
@@ -49,26 +51,24 @@ function slide() {
 }
 
 arrowLeft.addEventListener('click', () => {
-	dot[currentSlide].classList.remove("dot_selected") // Retire la classe du point liée à l'élément courant
-
+	// Retire la classe du point liée à l'élément courant
+	dot[currentSlide].classList.remove("dot_selected")
 	// Compte en sens inverse
 	if(currentSlide === 0) {
 		currentSlide = slides.length - 1
 	} else {
 		currentSlide --
 	}
-
-	slide() // Retourne la nouvelle slide qui devient la current
+	// Retourne la nouvelle slide qui devient la current
+	slide()
 })
 
 arrowRight.addEventListener('click', () => {
 	dot[currentSlide].classList.remove("dot_selected")
-
 	if(currentSlide === slides.length -1) {
 		currentSlide = 0
 	} else {
 		currentSlide ++
 	}
-
 	slide()
 })
